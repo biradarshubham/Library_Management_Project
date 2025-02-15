@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <style>
+        .setPass {
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .setPass-card {
+            background: white;
+            padding: 4rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .setPass-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .setPass-subtitle {
+            font-size: 1rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .setPass-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .setPass-form-group label {
+            display: block;
+            font-size: 1.3rem;
+            color: black;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .setPass-form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #a81313;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: #202020;
+        }
+
+        .setPass-form-group input::placeholder {
+            color: #161616;
+        }
+
+        .setPass-form-group input:focus {
+            outline: none;
+            border-color: #298aa7;
+            background-color: #fff;
+        }
+
+        .setPass-requirements {
+            color: #161616;
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+
+        .setPass-form button {
+            width: 100%;
+            padding: 0.75rem;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .setPass-form button:hover {
+            background: #4c84f3;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="setPass">
+        <div class="setPass-card">
+            <h1 class="setPass-title">Change your password</h1>
+            <p class="setPass-subtitle">Enter a new password below to change your password</p>
+
+            <form class="setPass-form" onsubmit="return validatePassword()" action="updatepass" method="post">
+                <div class="setPass-form-group">
+                    <label for="setPass-new-password">New password</label>
+                    <input type="password" id="setPass-new-password" placeholder="New password" name="password" required />
+                    <p class="error" id="passwordError"></p>
+                </div>
+
+                <div class="setPass-requirements">
+                    Password must be at least **8 characters long** and include:
+                    <ul>
+                        <li>✅ At least **one uppercase** letter</li>
+                        <li>✅ At least **one lowercase** letter</li>
+                        <li>✅ At least **one number**</li>
+                        <li>✅ At least **one special character (!@#$%^&*)**</li>
+                    </ul>
+                </div>
+
+                <div class="setPass-form-group">
+                    <label for="setPass-confirm-password">Confirm password</label>
+                    <input type="password" id="setPass-confirm-password" placeholder="Confirm your password" name="confirmpassword" required />
+                    <p class="error" id="confirmPasswordError"></p>
+                </div>
+
+                <button type="submit">CHANGE PASSWORD</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("setPass-new-password").value;
+            var confirmPassword = document.getElementById("setPass-confirm-password").value;
+            var passwordError = document.getElementById("passwordError");
+            var confirmPasswordError = document.getElementById("confirmPasswordError");
+
+            // Reset errors
+            passwordError.textContent = "";
+            confirmPasswordError.textContent = "";
+
+            // Password strength regex
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!passwordRegex.test(password)) {
+                passwordError.textContent = "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.";
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                return false;
+            }
+
+            alert("Password changed successfully!");
+            return true;
+        }
+    </script>
+</body>
+</html>

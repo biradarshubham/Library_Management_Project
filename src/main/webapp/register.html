@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>register </title>
+<link rel="stylesheet" type="text/css" href="register.css">
+
+</head>
+<body>
+	
+	 <div class='RegisterMainContainer'>
+	  <div class="reg">
+    	<img alt="" src="./assets/first.jpg" class="image-register" height="900px" >
+    	</div>
+		<div class="registration-container">
+        <div class="registration-header">
+            <h1>Create Account</h1>
+            <p>Please fill in the information below</p>
+        </div>
+        <form onsubmit="return validateForm()" action="register" method="post" >
+        	<div class="form-group">
+                    <label for="id">Enter Admin-ID</label>
+                    <input 
+                        type="text" 
+                        name="id"
+                        placeholder="Enter Admin Id"
+                        required
+                    />
+                </div>
+            <div class="form-row">
+            	
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input 
+                        type="text" 
+                        name="firstName"
+                        placeholder="Enter your first name"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input 
+                        type="text" 
+                        name="lastName" 
+                        placeholder="Enter your last name"
+                        required
+                        
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="Enter your email"
+                    required
+                />
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input 
+                    type="tel"
+                    name="phoneno" 
+                    placeholder="Enter your phone number"
+                    pattern="[0-9]{10}"
+                />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password"
+                    placeholder="Create a password"
+                    required
+                />
+                <p class="error" id="passwordError"></p>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input 
+                    type="password" 
+                    name="confirmPassword" 
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    required
+                />
+                <p class="error" id="confirmPasswordError" ></p>
+            </div>
+            <div class="terms">
+                <input type="checkbox" name="terms" value={true} required />
+                <label for="terms">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+            <button type="submit" class="register-button" value="register" >Create Account</button>
+            <div class="login-link">
+                Already have an account? <a href="login.jsp">Log in</a>
+            </div>
+        </form>
+    </div>
+   
+    </div>
+    
+		    <script>
+		    function validateForm() {
+		        let password = document.getElementById("password").value;
+		        let confirmPassword = document.getElementById("confirmPassword").value;
+		        let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		        
+		        var passwordError = document.getElementById("passwordError");
+		        var confirmPasswordError = document.getElementById("confirmPasswordError");
+		
+		        // Reset errors
+		        passwordError.textContent = "";
+		        confirmPasswordError.textContent = "";
+		        
+		        if (!passwordRegex.test(password)) {
+		            passwordError.textContent = "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.";
+		            return false;
+		        }
+		
+		        if (password !== confirmPassword) {
+		            confirmPasswordError.textContent = "Passwords do not match.";
+		            return false;
+		        }
+		
+		        alert("Registration successful!");
+		        return true;
+		    }
+		</script>
+
+
+</body>
+</html>
